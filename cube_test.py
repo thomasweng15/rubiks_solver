@@ -68,5 +68,18 @@ if __name__ == '__main__':
  	test_face_twist(cube, test_states, indexed_faces, 0)
  	test_face_twist(cube, test_states, indexed_faces, 2)
 
+ 	cube.twist_top_row_right(0)
+ 	compare(cube, test_states, 'top_row_right_0')
+ 	cube.load_faces(indexed_faces)
 
+ 	cube.twist_top_row_right(1)
+ 	compare(cube, test_states, 'top_row_right_1')
+ 	cube.load_faces(indexed_faces)
 
+ 	cube.twist_top_row_left(0)
+ 	compare(cube, test_states, 'top_row_left_0')
+ 	cube.load_faces(indexed_faces)
+
+ 	cube.twist_top_row_left(1)
+ 	compare(cube, test_states, 'top_row_left_1')
+ 	cube.load_faces(indexed_faces)

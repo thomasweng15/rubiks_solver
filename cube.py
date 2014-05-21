@@ -64,6 +64,20 @@ class Cube(object):
 		elif col is 2:
 			self.twist_face_right(self.right)
 
+	def twist_top_row_right(self, row):
+		self.twist_top_right(row)
+		if row is 0:
+			self.twist_face_right(self.back)
+		elif row is 2:
+			self.twist_face_right(self.front)
+
+	def twist_top_row_left(self, row):
+		self.twist_top_left(row)
+		if row is 0:
+			self.twist_face_left(self.back)
+		elif row is 2:
+			self.twist_face_right(self.front)
+
 	def twist_right(self, row):
 		temp = self.copy_face(self.faces[self.front])
 		self.replace_row(self.faces[self.left], self.faces[self.front], row)
@@ -102,6 +116,48 @@ class Cube(object):
 		face_to_replace[col] = replacing_face[col]
 		face_to_replace[col + 3] = replacing_face[col + 3]
 		face_to_replace[col + 6] = replacing_face[col + 6]
+
+	def twist_top_right(self, row):
+		temp = self.copy_face(self.faces[self.top])
+		self.col_to_row_right(self.faces[self.left], self.faces[self.top], row)
+		self.row_to_col_right(self.faces[self.bottom], self.faces[self.left], row)
+		self.col_to_row_right(self.faces[self.right], self.faces[self.bottom], row)
+		self.row_to_col_right(temp, self.faces[self.right], row)
+
+	def col_to_row_right(self, col_face, row_face, row):
+		row_index = row * 3
+		col_index = row
+		row_face[row_index] = col_face[col_index + 6]
+		row_face[row_index + 1] = col_face[col_index + 3]
+		row_face[row_index + 2] = col_face[col_index]
+
+	def row_to_col_right(self, row_face, col_face, row):
+		row_index = row * 3
+		col_index = row
+		col_face[col_index] = row_face[row_index]
+		col_face[col_index + 3] = row_face[row_index + 1]
+		col_face[col_index + 6] = row_face[row_index + 2]
+
+	def twist_top_left(self, row):
+		temp = self.copy_face(self.faces[self.top])
+		self.col_to_row_left(self.faces[self.right], self.faces[self.top], row)
+		self.row_to_col_left(self.faces[self.bottom], self.faces[self.right], row)
+		self.col_to_row_left(self.faces[self.left], self.faces[self.bottom], row)
+		self.row_to_col_left(temp, self.faces[self.left], row)
+
+	def col_to_row_left(self, col_face, row_face, row):
+		row_index = row * 3
+		col_index = row
+		row_face[row_index] = col_face[col_index]
+		row_face[row_index + 1] = col_face[col_index + 3]
+		row_face[row_index + 2] = col_face[col_index + 6]
+
+	def row_to_col_left(self, row_face, col_face, row):
+		row_index = row * 3
+		col_index = row
+		col_face[col_index] = row_face[row_index + 2]
+		col_face[col_index + 3] = row_face[row_index + 1]
+		col_face[col_index + 6] = row_face[row_index]
 
 	def copy_face(self, face):
 		temp = ["", "", "", "", "", "", "", "", ""]
