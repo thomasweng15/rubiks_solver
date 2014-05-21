@@ -24,16 +24,20 @@ class Cube(object):
 
 	def randomize(self, twists):
 		while twists > 0:
-			twist_choice= random.randint(0, 3)
+			twist_choice= random.randint(0, 5)
 			index = random.randint(0,2)
 			if twist_choice is 0:
-				twist_row_right(index)
+				self.twist_row_right(index)
 			elif twist_choice is 1:
-				twist_row_left(index)
+				self.twist_row_left(index)
 			elif twist_choice is 2:
-				twist_col_up(index)
+				self.twist_col_up(index)
 			elif twist_choice is 3:
-				twist_col_down(index)
+				self.twist_col_down(index)
+			elif twist_choice is 4:
+				self.twist_top_row_right(index)
+			elif twist_choice is 5:
+				self.twist_top_row_left(index)
 			twists -= 1
 
 	def twist_row_right(self, row):

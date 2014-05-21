@@ -82,4 +82,8 @@ if __name__ == '__main__':
 
  	cube.twist_top_row_left(1)
  	compare(cube, test_states, 'top_row_left_1')
- 	cube.load_faces(indexed_faces)
+ 	
+ 	print "Running randomization test."
+ 	cube.reset()
+ 	cube.randomize(1000)
+ 	cube.print_faces()
