@@ -1,14 +1,6 @@
 
 "Cube object representing a 3x3 Rubix cube."
 
-# index faces of cube
-FRONT = 0
-RIGHT = 1
-BACK = 2
-LEFT = 3
-TOP = 4
-BOTTOM = 5
-
 class Cube(object):
 	def __init__(self):
 		self.faces = [
@@ -20,47 +12,55 @@ class Cube(object):
 			["P", "P", "P", "P", "P", "P", "P", "P", "P"]
 		]
 
+		# index faces of cube
+		self.front = 0
+		self.right = 1
+		self.back = 2
+		self.left = 3
+		self.top = 4
+		self.bottom = 5
+
 	def twist_row_right(self, row):
 		self.twist_right(row)
 		if row is 0:
-			self.twist_face_right(TOP)
+			self.twist_face_right(self.top)
 		elif row is 2: 
-			self.twist_face_right(BOTTOM)
+			self.twist_face_right(self.bottom)
 
 	def twist_row_left(self, row):
 		self.twist_left(row)
 		if row is 0:
-			self.twist_face_left(TOP)
+			self.twist_face_left(self.top)
 		elif row is 2:
-			self.twist_face_left(BOTTOM)
+			self.twist_face_left(self.bottom)
 
 	def twist_col_up(self, col):
 		self.twist_up(col)
 		if col is 0:
-			self.twist_face_left(LEFT)
+			self.twist_face_left(self.left)
 		elif col is 2:
-			self.twist_face_left(RIGHT)
+			self.twist_face_left(self.right)
 
 	def twist_col_down(self, col):
 		self.twist_down(col)
 		if col is 0:
-			self.twist_face_right(LEFT)
+			self.twist_face_right(self.left)
 		elif col is 2:
-			self.twist_face_right(RIGHT)
+			self.twist_face_right(self.right)
 
 	def twist_right(self, row):
-		temp = copy_face(self.faces[FRONT])
-		self.replace_row(self.faces[LEFT], self.faces[FRONT], row)
-		self.replace_row(self.faces[BACK], self.faces[LEFT], row)
-		self.replace_row(self.faces[RIGHT], self.faces[BACK], row)
-		self.replace_row(temp, self.faces[RIGHT], row)
+		temp = copy_face(self.faces[self.front])
+		self.replace_row(self.faces[self.left], self.faces[self.front], row)
+		self.replace_row(self.faces[self.back], self.faces[self.left], row)
+		self.replace_row(self.faces[self.right], self.faces[self.back], row)
+		self.replace_row(temp, self.faces[self.right], row)
 
 	def twist_left(self, row):
-		temp = copy_face(self.faces[FRONT])
-		self.replace_row(self.faces[RIGHT], self.faces[FRONT], row)
-		self.replace_row(self.faces[BACK], self.faces[RIGHT], row)
-		self.replace_row(self.faces[LEFT], self.faces[BACK], row)
-		self.replace_row(temp, self.faces[LEFT], row)
+		temp = copy_face(self.faces[self.front])
+		self.replace_row(self.faces[self.right], self.faces[self.front], row)
+		self.replace_row(self.faces[self.back], self.faces[self.right], row)
+		self.replace_row(self.faces[self.left], self.faces[self.back], row)
+		self.replace_row(temp, self.faces[self.left], row)
 
 	def replace_row(self, replacing_face, face_to_replace, row):
 		index = row * 3
@@ -69,18 +69,18 @@ class Cube(object):
 		face_to_replace[index + 2] = replacing_face[index + 2]
 
 	def twist_up(self, col):
-		temp = self.copy_face(self.faces[FRONT])
-		self.replace_col(self.faces[BOTTOM], self.faces[FRONT], col)
-		self.replace_col(self.faces[BACK], self.faces[BOTTOM], col)
-		self.replace_col(self.faces[TOP], self.faces[BACK], col)
-		self.replace_col(temp, self.faces[TOP], col)
+		temp = self.copy_face(self.faces[self.front])
+		self.replace_col(self.faces[self.bottom], self.faces[self.front], col)
+		self.replace_col(self.faces[self.back], self.faces[self.bottom], col)
+		self.replace_col(self.faces[self.top], self.faces[self.back], col)
+		self.replace_col(temp, self.faces[self.top], col)
 
 	def twist_down(self, col):
-		temp = self.copy_face(self.faces[FRONT])
-		self.replace_col(self.faces[TOP], self.faces[FRONT], col)
-		self.replace_col(self.faces[BACK], self.faces[TOP], col)
-		self.replace_col(self.faces[BOTTOM], self.faces[BACK], col)
-		self.replace_col(temp, self.faces[BOTTOM], col)
+		temp = self.copy_face(self.faces[self.front])
+		self.replace_col(self.faces[self.top], self.faces[self.front], col)
+		self.replace_col(self.faces[self.back], self.faces[self.top], col)
+		self.replace_col(self.faces[self.bottom], self.faces[self.back], col)
+		self.replace_col(temp, self.faces[self.bottom], col)
 
 	def replace_col(self, replacing_face, face_to_replace, col):
 		face_to_replace[col] = replacing_face[col]
@@ -136,9 +136,5 @@ class Cube(object):
 					count = 0
 			print ""
 
-
-if __name__ == '__main__':
-	print "Testing Cube object."
-	cube = Cube()
-	cube.twist_col_up(0)
-	cube.print_faces()
+	def load_faces(self, faces):
+		self.faces = faces
