@@ -17,6 +17,15 @@ def compare(cube, test_states, state):
 	if passed:
 		print "test '" + state + "'' passed."
 
+def test_face_twist(cube, test_states, numbered_faces, index):
+	cube.twist_row_right(index)
+	compare(cube, test_states, 'face_right_' + str(index))
+	cube.load_faces(numbered_faces)
+
+	cube.twist_row_left(index)
+	compare(cube, test_states, 'face_left_' + str(index))
+	cube.load_faces(numbered_faces)
+
 if __name__ == '__main__':
 	print "Testing Cube object."
 	test_states_file = open("test_states.yaml", "r")
@@ -43,4 +52,21 @@ if __name__ == '__main__':
 		cube.reset()
 
 		count += 1
+
+	indexed_faces = [
+		["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+		["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+		["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+		["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+		["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+		["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+	]
+
+	cube.load_faces(indexed_faces)
+	compare(cube, test_states, 'indexed_faces')
+
+ 	test_face_twist(cube, test_states, indexed_faces, 0)
+ 	test_face_twist(cube, test_states, indexed_faces, 2)
+
+
 

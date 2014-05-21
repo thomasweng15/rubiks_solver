@@ -153,7 +153,13 @@ class Cube(object):
 			print ""
 
 	def load_faces(self, faces):
-		self.faces = faces
+		count = 0
+		while count < 6:
+			row_index = 0
+			while row_index < 9:
+				self.faces[count][row_index] = faces[count][row_index]
+				row_index += 1
+			count += 1
 
 	def reset(self):
 		self.faces = [
