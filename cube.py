@@ -11,7 +11,7 @@ class Cube(object):
 			["Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y"],
 			["G", "G", "G", "G", "G", "G", "G", "G", "G"],
 			["B", "B", "B", "B", "B", "B", "B", "B", "B"],
-			["P", "P", "P", "P", "P", "P", "P", "P", "P"]
+			["V", "V", "V", "V", "V", "V", "V", "V", "V"]
 		]
 
 		# index faces of cube
@@ -65,14 +65,14 @@ class Cube(object):
 			self.twist_face_right(self.right)
 
 	def twist_right(self, row):
-		temp = copy_face(self.faces[self.front])
+		temp = self.copy_face(self.faces[self.front])
 		self.replace_row(self.faces[self.left], self.faces[self.front], row)
 		self.replace_row(self.faces[self.back], self.faces[self.left], row)
 		self.replace_row(self.faces[self.right], self.faces[self.back], row)
 		self.replace_row(temp, self.faces[self.right], row)
 
 	def twist_left(self, row):
-		temp = copy_face(self.faces[self.front])
+		temp = self.copy_face(self.faces[self.front])
 		self.replace_row(self.faces[self.right], self.faces[self.front], row)
 		self.replace_row(self.faces[self.back], self.faces[self.right], row)
 		self.replace_row(self.faces[self.left], self.faces[self.back], row)
@@ -154,3 +154,13 @@ class Cube(object):
 
 	def load_faces(self, faces):
 		self.faces = faces
+
+	def reset(self):
+		self.faces = [
+			["R", "R", "R", "R", "R", "R", "R", "R", "R"],
+			["O", "O", "O", "O", "O", "O", "O", "O", "O"],
+			["Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y", "Y"],
+			["G", "G", "G", "G", "G", "G", "G", "G", "G"],
+			["B", "B", "B", "B", "B", "B", "B", "B", "B"],
+			["V", "V", "V", "V", "V", "V", "V", "V", "V"]
+		]
