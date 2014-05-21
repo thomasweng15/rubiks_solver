@@ -27,6 +27,13 @@ class Cube(object):
 		elif row is 2: 
 			self.twist_face_right(BOTTOM)
 
+	def twist_row_left(self, row):
+		self.twist_left(row)
+		if row is 0:
+			self.twist_face_left(TOP)
+		if row is 2:
+			self.twist_face_left(BOTTOM)
+
 	def twist_right(self, row):
 		temp = ["", "", "", "", "", "", "", "", ""]
 		temp_index = 0
@@ -38,6 +45,18 @@ class Cube(object):
 		self.replace_row(self.faces[BACK], self.faces[LEFT], row)
 		self.replace_row(self.faces[RIGHT], self.faces[BACK], row)
 		self.replace_row(temp, self.faces[RIGHT], row)
+
+	def twist_left(self, row):
+		temp = ["", "", "", "", "", "", "", "", ""]
+		temp_index = 0
+		for item in self.faces[FRONT]:
+			temp[temp_index] = self.faces[FRONT][temp_index]
+			temp_index += 1
+
+		self.replace_row(self.faces[RIGHT], self.faces[FRONT], row)
+		self.replace_row(self.faces[BACK], self.faces[RIGHT], row)
+		self.replace_row(self.faces[LEFT], self.faces[BACK], row)
+		self.replace_row(temp, self.faces[LEFT], row)
 
 	def twist_face_right(self, face):
 		grid = self.faces[face]
@@ -53,6 +72,20 @@ class Cube(object):
 		grid[7] = grid[5]
 		grid[5] = temp
 
+	def twist_face_left(self, face):
+		grid = self.faces[face]
+		temp = grid[0]
+		grid[0] = grid[2]
+		grid[2] = grid[8]
+		grid[8] = grid[6]
+		grid[6] = temp
+
+		temp = grid[1]
+		grid[1] = grid[5]
+		grid[5] = grid[7]
+		grid[7] = grid[3]
+		grid[3] = temp
+
 	def replace_row(self, replacing_face, face_to_replace, row):
 		index = row * 3
 		face_to_replace[index] = replacing_face[index]
@@ -67,5 +100,5 @@ class Cube(object):
 if __name__ == '__main__':
 	print "Testing Cube object."
 	cube = Cube()
-	cube.twist_row_right(0)
+	cube.twist_face_left(0)
 	cube.print_faces()
