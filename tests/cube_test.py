@@ -40,24 +40,61 @@ def test_initial_state():
 	compare(cube, test_states, 'initial')
 
 @with_setup(setup_function)
-def test_single_twist_every_direction():
+def test_single_right_twists():
 	count = 0
 	while count < 3:
-		cube.twist_row_right(count)
+		cube.twist_right(count)
 		compare(cube, test_states, 'right_' + str(count))
 		reset(cube, indexed_faces)
-
-		cube.twist_row_left(count)
-		compare(cube, test_states, 'left_' + str(count))
-		reset(cube, indexed_faces)
-
-		cube.twist_col_up(count)
-		compare(cube, test_states, 'up_' + str(count))
-		reset(cube, indexed_faces)
-
-		cube.twist_col_down(count)
-		compare(cube, test_states, 'down_' + str(count))
-		reset(cube, indexed_faces)
-
 		count += 1
 
+@with_setup(setup_function)
+def test_single_left_twists():
+	count = 0
+	while count < 3:
+		cube.twist_left(count)
+		compare(cube, test_states, 'left_' + str(count))
+		reset(cube, indexed_faces)
+		count += 1
+
+@with_setup(setup_function)
+def test_single_up_twists():
+	count = 0
+	while count < 3:
+		cube.twist_up(count)
+		compare(cube, test_states, 'up_' + str(count))
+		reset(cube, indexed_faces)
+		count += 1
+
+@with_setup(setup_function)
+def test_single_down_twists():
+	count = 0
+	while count < 3:
+		cube.twist_down(count)
+		compare(cube, test_states, 'down_' + str(count))
+		reset(cube, indexed_faces)
+		count += 1
+
+@with_setup(setup_function)
+def test_single_top_right_twists():
+	count = 0
+	while count < 3:
+		cube.twist_top_right(count)
+		compare(cube, test_states, 'top_right_' + str(count))
+		reset(cube, indexed_faces)
+		count += 1
+
+@with_setup(setup_function)
+def test_single_top_left_twists():
+	count = 0
+	while count < 3:
+		cube.twist_top_left(count)
+		compare(cube, test_states, 'top_left_' + str(count))
+		reset(cube, indexed_faces)
+		count += 1
+
+@with_setup(setup_function)
+def test_randomize():
+	cube.unrandomize(cube.randomize(1000))
+	assert cube.faces == indexed_faces, \
+		"Unshuffling random moves did not return solved cube."
