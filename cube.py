@@ -59,14 +59,14 @@ class Cube(object):
 		if col is 0:
 			self.twist_face_left(self.left)
 		elif col is 2:
-			self.twist_face_left(self.right)
+			self.twist_face_right(self.right)
 
 	def twist_col_down(self, col):
 		self.twist_down(col)
 		if col is 0:
 			self.twist_face_right(self.left)
 		elif col is 2:
-			self.twist_face_right(self.right)
+			self.twist_face_left(self.right)
 
 	def twist_top_row_right(self, row):
 		self.twist_top_right(row)
